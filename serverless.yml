@@ -1,0 +1,19 @@
+service: fb-chatbot-serverless
+
+provider:
+  tracing:
+    lambda: true
+    apiGateway: true
+  name: aws
+  runtime: nodejs10.x
+  profile: telecommerce
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'ap-southeast-1'}
+
+functions:
+  facebook:
+    handler: facebook.fbmessage
+    events:
+      - http:
+          method: any
+          path: fbmessage
